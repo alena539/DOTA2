@@ -1,19 +1,91 @@
+<!DOCTYPE html>
+<html>
 <head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lines</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
 
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
 <body>
-    <div class="App">
-        <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
-    </div>
-</body>
+    <h1>ГАЙДЫ ПО DOTA2</h1>
 
+    <ul class="uploaded-lines">
+        {% for word in first_word %}
+            <li><a href="/uploaded_lines/{{ loop.index }}">{{ word }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+    {% for word in first_words %}
+        <li>
+            <a href="/line/{{ loop.index }}">
+                <img src="{{ url_for('static', filename='images/'+word+'.jpg') }}" alt="{{ word }}" width="100" height="100">
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+    <center>
+        <h1>Добавь свой гайд</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="Upload">
+        </form>
+    </center>
+    
+</body>
 </html>
+
